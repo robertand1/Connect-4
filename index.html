@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      #board {
+        display: grid;
+        grid-template-columns: repeat(7, 60px);
+        gap: 5px;
+        background: blue;
+        padding: 10px;
+        width: fit-content;
+      }
+      .cell {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+      }
+    </style>
+    <title>Connect 4</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="message">Turn: RED</h2>
+      <div id="board"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
