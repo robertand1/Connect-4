@@ -5,7 +5,7 @@ function showMessage(text) {
   document.getElementById("message").innerText = text;
 }
 
-function initializeBoard() {
+function boardInitialization() {
   const board = document.getElementById("board");
   for (let r = 0; r < 6; ++r) {
     for (let c = 0; c < 7; ++c) {
@@ -14,7 +14,7 @@ function initializeBoard() {
       cell.id = "r" + r + "c" + c;
       cell.onclick = function () {
         dropPiece(c);
-      }
+      };
       board.appendChild(cell);
     }
   }
@@ -130,4 +130,4 @@ function checkWin() {
   return false;
 }
 
-initializeBoard();
+boardInitialization();
