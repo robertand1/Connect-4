@@ -1,20 +1,24 @@
 let currentPlayer = "red";
 let gameOver = false;
-const board = document.getElementById("board");
 
 function showMessage(text) {
   document.getElementById("message").innerText = text;
 }
 
-for (let r = 0; r < 6; ++r) {
-  for (let c = 0; c < 7; ++c) {
-    let cell = document.createElement("div");
-    cell.className = "cell";
-    cell.id = "r" + r + "c" + c;
-    cell.onclick = function () {
-      dropPiece(c);
-    };
-    board.appendChild(cell);
+function initializeBoard() {
+  const board = document.getElementById("board");
+  for (let r = 0; r < 6; r++) {
+    for (let c = 0; c < 7; c++) {
+      let cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "r" + r + "c" + c;
+
+      cell.onclick = function () {
+        dropPiece(c);
+      };
+
+      board.appendChild(cell);
+    }
   }
 }
 
@@ -54,6 +58,56 @@ function getColor(r, c) {
   return "";
 }
 
+function checkHorizontal(r, c, color) {
+  if (
+    c < 4 &&
+    color === getColor(r, c + 1) &&
+    color === getColor(r, c + 2) &&
+    color === getColor(r, c + 3)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function checkVertical(r, c, color) {
+  if (
+    r < 3 &&
+    color === getColor(r + 1, c) &&
+    color === getColor(r + 2, c) &&
+    color === getColor(r + 3, c)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function checkDiagonalDownRight(r, c, color) {
+  if (
+    r < 3 &&
+    c < 4 &&
+    color === getColor(r + 1, c + 1) &&
+    color === getColor(r + 2, c + 2) &&
+    color === getColor(r + 3, c + 3)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function checkDiagonalDownLeft(r, c, color) {
+  if (
+    r < 3 &&
+    c > 2 &&
+    color === getColor(r + 1, c - 1) &&
+    color === getColor(r + 2, c - 2) &&
+    color === getColor(r + 3, c - 3)
+  ) {
+    return true;
+  }
+  return false;
+}
+
 function checkWin() {
   for (let r = 0; r < 6; ++r) {
     for (let c = 0; c < 7; ++c) {
@@ -61,41 +115,21 @@ function checkWin() {
       if (color === "") {
         continue;
       }
-      if (
-        c < 4 &&
-        color === getColor(r, c + 1) &&
-        color === getColor(r, c + 2) &&
-        color === getColor(r, c + 3)
-      ) {
+      if (checkHorizontal(r, c, color)) {
         return true;
       }
-      if (
-        r < 3 &&
-        color === getColor(r + 1, c) &&
-        color === getColor(r + 2, c) &&
-        color === getColor(r + 3, c)
-      ) {
+      if (checkVertical(r, c, color)) {
         return true;
       }
-      if (
-        r < 3 &&
-        c < 4 &&
-        color === getColor(r + 1, c + 1) &&
-        color === getColor(r + 2, c + 2) &&
-        color === getColor(r + 3, c + 3)
-      ) {
+      if (checkDiagonalDownRight(r, c, color)) {
         return true;
       }
-      if (
-        r < 3 &&
-        c > 2 &&
-        color === getColor(r + 1, c - 1) &&
-        color === getColor(r + 2, c - 2) &&
-        color === getColor(r + 3, c - 3)
-      ) {
+      if (checkDiagonalDownLeft(r, c, color)) {
         return true;
       }
     }
   }
   return false;
 }
+
+initializeBoard();
