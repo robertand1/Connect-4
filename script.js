@@ -7,16 +7,14 @@ function showMessage(text) {
 
 function initializeBoard() {
   const board = document.getElementById("board");
-  for (let r = 0; r < 6; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let r = 0; r < 6; ++r) {
+    for (let c = 0; c < 7; ++c) {
       let cell = document.createElement("div");
       cell.className = "cell";
       cell.id = "r" + r + "c" + c;
-
       cell.onclick = function () {
         dropPiece(c);
-      };
-
+      }
       board.appendChild(cell);
     }
   }
