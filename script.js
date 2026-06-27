@@ -56,54 +56,15 @@ function getColor(r, c) {
   return "";
 }
 
-function checkHorizontal(r, c, color) {
-  if (
-    c < 4 &&
-    color === getColor(r, c + 1) &&
-    color === getColor(r, c + 2) &&
-    color === getColor(r, c + 3)
-  ) {
-    return true;
+function checkDirection(r, c, R, C, color) {
+  for (let i = 1; i <= 3; ++i) {
+    let nextRow = r + R * i;
+    let nextCol = c + C * i;
+    if (getColor(nextRow, nextCol) !== color) {
+      return false;
+    }
   }
-  return false;
-}
-
-function checkVertical(r, c, color) {
-  if (
-    r < 3 &&
-    color === getColor(r + 1, c) &&
-    color === getColor(r + 2, c) &&
-    color === getColor(r + 3, c)
-  ) {
-    return true;
-  }
-  return false;
-}
-
-function checkDiagonalDownRight(r, c, color) {
-  if (
-    r < 3 &&
-    c < 4 &&
-    color === getColor(r + 1, c + 1) &&
-    color === getColor(r + 2, c + 2) &&
-    color === getColor(r + 3, c + 3)
-  ) {
-    return true;
-  }
-  return false;
-}
-
-function checkDiagonalDownLeft(r, c, color) {
-  if (
-    r < 3 &&
-    c > 2 &&
-    color === getColor(r + 1, c - 1) &&
-    color === getColor(r + 2, c - 2) &&
-    color === getColor(r + 3, c - 3)
-  ) {
-    return true;
-  }
-  return false;
+  return true;
 }
 
 function checkWin() {
@@ -113,16 +74,16 @@ function checkWin() {
       if (color === "") {
         continue;
       }
-      if (checkHorizontal(r, c, color)) {
+      if (checkDirection(r, c, 0, 1, color)) {
         return true;
       }
-      if (checkVertical(r, c, color)) {
+      if (checkDirection(r, c, 1, 0, color)) {
         return true;
       }
-      if (checkDiagonalDownRight(r, c, color)) {
+      if (checkDirection(r, c, 1, 1, color)) {
         return true;
       }
-      if (checkDiagonalDownLeft(r, c, color)) {
+      if (checkDirection(r, c, 1, -1, color)) {
         return true;
       }
     }
